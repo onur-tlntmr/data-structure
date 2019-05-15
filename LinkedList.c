@@ -6,12 +6,10 @@ struct n {
 	struct n *next;
 };
 
-struct z{
-	struct n*t;
-}
+
 
 typedef struct n node;
-typedef struct z test;
+
 
 
 
