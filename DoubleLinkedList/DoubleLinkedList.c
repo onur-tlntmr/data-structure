@@ -7,17 +7,17 @@ struct n{
     struct n *next;
 };
 
-typedef struct n node;
+typedef struct n DList;
 
 
-void printList(node *root){
+void printDList(DList *root){
     
     if(root == NULL ){
         printf("Bos Liste\n");
     }
 
     else{
-        node *iter = root;
+        DList *iter = root;
         do{
             printf(" %d",iter->x);
             iter = iter->next;
@@ -27,20 +27,20 @@ void printList(node *root){
 }
 
 
-node* addItem(node *root,int item){
+DList* addItem(DList *root,int item){
     if(root == NULL){
-        root = (node*)malloc(sizeof(node));
+        root = (DList*)malloc(sizeof(DList));
         root->x = item;
         root->next = NULL;
         root->prev = NULL;
         return root;
     }
-    node *iter = root;
+    DList *iter = root;
 
-    node* temp;
+    DList* temp;
     while(iter->next != NULL)
         iter = iter->next;
-    temp = (node*)malloc(sizeof(node));
+    temp = (DList*)malloc(sizeof(DList));
     temp->x = item;
     temp->prev = iter;
     temp->next = NULL;
@@ -51,18 +51,18 @@ node* addItem(node *root,int item){
 }
 
 
-node* orderedAddItem(node *root,int item){
+DList* orderedAddItem(DList *root,int item){
     if(root == NULL){
-        root = (node*)malloc(sizeof(node));
+        root = (DList*)malloc(sizeof(DList));
         root->x = item;
         root->next = NULL;
         root->prev = NULL;
         return root;
     }
 
-    node *temp;
+    DList *temp;
     if(root->x > item){
-        temp = (node*)malloc(sizeof(node));
+        temp = (DList*)malloc(sizeof(DList));
         temp-> x = item;
         temp->next = root;
         root->prev = temp;
@@ -70,14 +70,14 @@ node* orderedAddItem(node *root,int item){
         return temp;
     }
 
-    node *iter = root;
+    DList *iter = root;
     
 
     while(iter->next != NULL && iter->next->x < item)
         iter = iter->next;
 
     temp = iter->next;
-    iter->next = (node*)malloc(sizeof(node));
+    iter->next = (DList*)malloc(sizeof(DList));
     iter->next->x = item;
     iter->next->next = temp;
 
@@ -89,12 +89,12 @@ node* orderedAddItem(node *root,int item){
 }
 
 
-node* removeItem(node *root,int item){
+DList* removeItem(DList *root,int item){
     if(root == NULL){
         printf("Bos Liste\n");
         return root;
     }
-    node *temp;
+    DList *temp;
     if(root->x == item){
         temp = root;
         root = root->next;
@@ -103,7 +103,7 @@ node* removeItem(node *root,int item){
         return root;
 
     }
-    node *iter = root;
+    DList *iter = root;
     while(iter->next != NULL && iter->next->x != item)
         iter = iter->next;
     
@@ -123,25 +123,3 @@ node* removeItem(node *root,int item){
 }
 
 
-int main(){
-    
-    node *list = NULL;
-
-    list = orderedAddItem(list,0);
-    list = orderedAddItem(list,10);
-    list = orderedAddItem(list,20);
-    list = orderedAddItem(list,15);
-    list = orderedAddItem(list,30);
-    printList(list);
-
-    list=removeItem(list,10);
-    printList(list);
-    list=removeItem(list,8);
-    printList(list);
-    list=removeItem(list,0);
-    printList(list);
-    list=removeItem(list,30);
-    printList(list);
-
-    return 0;
-}
