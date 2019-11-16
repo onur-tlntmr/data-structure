@@ -63,19 +63,25 @@ Queue* Push(Queue* q,int item){
 
 int Get(Queue *q){ //Q'dan ilk elemanı alan ve aldığı elemanı silen fonksiyon
     
-    int numb = q->first_item; //ilk sayi döndürülen değer olduğu için alınıyr
 
-    node* temp = q->nodes; //
-    q->nodes = temp->next;
-    free(temp);
-    if(q->size == 1){
+    if(IsEmpty(q)) // Eleman yoksa -1 dönderiliyor
+        return -1;
+
+
+
+    int numb = q->first_item; //ilk sayi döndürülen değer olduğu için alınıyor
+
+    node* temp = q->nodes; //eski node'lar temp adıyla tutuluyor
+    q->nodes = temp->next;//nodelar bir ileri alınıyor
+    free(temp);//ilk node hafızadan siliniyor
+    if(q->size == 1){//Tek eleman alındıysa ilk item sıfırlanıyor
         q->first_item = 0;
     }
     else{
-        q->first_item = q->nodes->item;
+        q->first_item = q->nodes->item; // değilse baştaki eleman ilk eleman olarak tutuluyor
     }
 
-    q->size--;
+    q->size--;//boyut bir azaltılıyor
 
 
     return numb;
